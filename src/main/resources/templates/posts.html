@@ -17,6 +17,14 @@
         <div>
             <p th:text="${p.body}"></p>
         </div>
+        <div>
+<!--            <a href="post/editpost.html" th:href="@{/posts/editpost}">Edit post</a>-->
+            <a th:href="@{/editpost(postId=${p.id})}">Edit post</a><br>
+            <a th:href="@{/deletepost(postId=${p.id})}">Delete post</a><br>
+            <form th:action="@{/deletepostdirectly(postId=${p.id})}" th:method="delete">
+                <input type="submit" value="Delete directly" />
+            </form>
+        </div>
     </post>
 </main>
 </body>

@@ -9,6 +9,7 @@ import technicalblog.service.PostService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -17,7 +18,7 @@ public class HomeController {
     private PostService postService;
     @RequestMapping("/")
     public String getAllPosts(Model model) { // This is Spring provided Model class which helps in passing data from controller to view, addresses CRUD functionalities
-        ArrayList<Post> posts = postService.getAllPosts();
+        List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "index";
     }

@@ -11,6 +11,7 @@ import technicalblog.service.PostService;
 import technicalblog.service.UserService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -18,14 +19,17 @@ public class UserController {
     private PostService postService;
     @Autowired
     private UserService userService;
+
     @RequestMapping("users/login")  // th:href="@{users/login}" in layout.html
     public String login(){
         return "users/login";
     }
+
     @RequestMapping("users/register")
     public String register(){
         return "users/register";
     }
+
     @RequestMapping(value="users/login",method= RequestMethod.POST)
     public String loginuser(User user){
         if(userService.login(user))
@@ -35,7 +39,7 @@ public class UserController {
     }
     @RequestMapping(value="users/logout",method= RequestMethod.POST)
     public String logoutuser(Model model){
-        ArrayList<Post> posts= postService.getAllPosts();
+        List<Post> posts= postService.getAllPosts();
         model.addAttribute("posts",posts);
         return "index";
     }
