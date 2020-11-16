@@ -6,11 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import technicalblog.model.Category;
 import technicalblog.model.Post;
+import technicalblog.model.User;
 import technicalblog.service.PostService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +38,22 @@ public class PostController {
     }
 
     @RequestMapping(value = "/posts/create", method = RequestMethod.POST)
-    public String createPost(Post newPost) {
+    public String createPost(Post newPost, HttpSession session) {
+        User user = (User)session.getAttribute("loggedinuser");
+        newPost.setUser(user);
+
+        if (newPost.getSpringBlog() != null) {
+            Category springBlogCategory = new Category();
+            springBlogCategory.setCategory(newPost.getSpringBlog());
+            newPost.getCategories().add(springBlogCategory);
+        }
+
+        if (newPost.getJavaBlog() != null) {
+            Category javaBlogCategory = new Category();
+            javaBlogCategory.setCategory(newPost.getJavaBlog());
+            newPost.getCategories().add(javaBlogCategory);
+        }
+
         postService.createPost(newPost);
         return "redirect:/posts";
     }
@@ -49,8 +67,10 @@ public class PostController {
     }
 
     @RequestMapping(value = "/editpost",method = RequestMethod.PUT)
-    public String editPostSubmit(@RequestParam(name="postId") Integer id, Post post)
+    public String editPostSubmit(@RequestParam(name="postId") Integer id, Post post,HttpSession session)
     {
+        User user = (User)session.getAttribute("loggedinuser");
+        post.setUser(user);
         post.setId(id);
         postService.editPost(post);
         return "redirect:/posts";

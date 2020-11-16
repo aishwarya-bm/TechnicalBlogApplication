@@ -3,6 +3,7 @@ package technicalblog.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import technicalblog.model.Post;
+import technicalblog.model.User;
 import technicalblog.repository.PostRepository;
 
 import javax.persistence.EntityManager;
@@ -123,4 +124,6 @@ public class PostService { // Addresses business logic or functional needs requi
     public void deletePost(Integer id) {
         repository.deletePost(id);
     }
+
+
 }

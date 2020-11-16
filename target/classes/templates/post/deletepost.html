@@ -1,0 +1,28 @@
+<!Doctype html>
+
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+    <title>Spring MVC Application - Create Post</title>
+</head>
+
+<header th:replace="layout :: logged-in"></header>
+
+<body>
+<h1>Create New Post</h1>
+
+<form th:method="delete" th:action="@{/deletepost(postId = ${post.id})}" >
+    <div>Post Title:</div>
+    <div><input type="text"  name="title" th:value="${post.title}"/></div>
+
+    <div>Description:</div>
+
+    <div><textarea rows="7" cols="100" name="body" th:text="${post.body}"></textarea></div>
+
+    <div>
+        <input type="submit" value="Delete"/>
+    </div>
+</form>
+
+</body>
+</html>

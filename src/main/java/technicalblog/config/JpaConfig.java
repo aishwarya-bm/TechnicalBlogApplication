@@ -28,4 +28,5 @@ public class JpaConfig {
         ds.setPassword("postgres");
         return ds;
     }
+
 }
